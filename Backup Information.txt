@@ -1,0 +1,220 @@
+Custody Management
+
+
+Welcome to the Custody Management section.
+
+When a person has been arrested. They must be identified via name or fingerprints.
+
+They must be searched prior to jail.
+
+Once the above is completed they can be jailed using /jail [ID] [time].
+
+
+
+Officers must follow the guide below for jail timing. You must choose the closest umbrella code that suits the charges and go with that.
+
+DO NOT: Stack offences. You may only sentence them for 1 so choose the highest.
+
+
+
+Offences/Jail Times Below;
+
+
+
+Violence
+1110 Murder - 300
+
+1120 Attempted Murder - 250
+
+1130 Manslaughter - 200
+
+1210 Kidnapping/Abduction - 250
+
+
+
+1310 Aggrivated Robbery (Weapon) - 200
+
+1316 Aggrivated Robbery (Manual) - 150
+
+1320 Robbery - 120
+
+
+
+1410 Grievous Assault - 250
+
+1510 Serious Assault - 150
+
+1640 Minor Assault - 60
+
+1710 Threats/Intimidation - 120
+
+1540 Male Assaults Female - 150
+
+
+
+1480 Use firearm on Police Officer - 200
+
+1550 Assaults Police - 150
+
+6340 Injures Police Dog - 200
+
+6820 Firearms Offences (General) - 150
+
+6851 Unlawfully Carries or possess firearm, restricted weapon, explosives or ammunation - 150
+
+6852 Unlawfully Carries immitation Firarm - 100
+
+6853 Intoxicated in Charge of firearm - 120
+
+6854 Discharges Firearm in or near place/dwelling - 100
+
+6856 Unlawful possess pistol or Restricted weapon - 100
+
+3510 Obstructs Police - 80
+
+
+
+
+
+Drugs & Anti Social Behaviour
+1710 Threatens to Kill - 100
+
+1730 Threatening Behaviour - 80
+
+1754 Possess Offensive Weapon - 100
+
+1758 Unlawful possess knife - 80
+
+1790 Treatening to Damage Property - 80
+
+
+
+1820 Unlawful Assembly - 60
+
+3110 Import, Supply or Produce Class A Drug - 120
+
+3115 Import, Supply or Produce Class B Drug - 100
+
+3210 Import, Supply or Produce Class C Drug - 80
+
+3151 Possess Class A Drug - 80
+
+3154 Possess Class B Drug - 70
+
+3150 Possess Class C Drug - 60
+
+
+
+3521 Incite Violence, disorder or lawlesness - 100
+
+3535 Offensive Behaviours - 80
+
+3537 Disorderly Behaviour Private Premisis - 80
+
+3560 Micellaneous Disorder Offences - 80
+
+3985 Breach of Council Liqour Ban - 80
+
+
+
+3850 Contravenes Protection Order - 100
+
+3920 Licensed Premisis Liqour Offence Selling to Minor(s) - 80
+
+3950 Refusal to admin Police on Licensed Premisis - 60
+
+3970 Unlicensed Premisis Liqour Offences - 60
+
+
+
+
+
+Dishonesty
+4120 Burglary - 150
+
+4155 Aggrevated Burglary - 200
+
+4211 Unlawful Taking Motor Vehicle - 120
+
+4220 Unlawfully Interefere with motorvehicle - 100
+
+4230 Take, convert or interfere bicycle - 80
+
+
+
+4320 Theft ex Shop- 60
+
+4370 General Theft - 60
+
+4378 Theft of boat - 120
+
+4530 Fraud - 120
+
+
+
+
+
+Property Damage/Offences
+5110 Arson - 150
+
+5113 Attempted Arson - 100
+
+5120 Wilful Damage - 120
+
+5210 Endangering/Interfering - 90
+
+5232 Endangering Safety of Plane - 150
+
+5235 Endangering Safety in Airport - 150
+
+
+
+6110 Offences under trespass act - 100
+
+6210 Littering - 15
+
+
+
+
+
+Miscellaneous
+1840 Harassment - 80
+
+6333 Breach Of Fisheries Act - 100
+
+6391 Cruelty to or ill-treatment of Animals - 100
+
+6530 Fire Service Abuses - 100
+
+6550 Telecomunications Act Offences - 60
+
+7125 Obstruct/Pervert/Defeat Course of Justice - 100
+
+7130 Escapes Custody - 200
+
+7510 Treason - 300
+
+6D Bail Breach - 80
+
+
+
+
+
+Traffic Offending
+Failed to Stop for Red/Blue - 120
+
+Failed to remain stopped - 120
+
+Failed to provide particulars - 60
+
+Breath Alcohol exceeds 400mcg - 100
+
+
+
+Driving in a dangerous manner - 100
+
+Driving while Disqualified - 100
+
+Careless Driving causing Death - 300
+
+Careless Driving causing Injury - 150
