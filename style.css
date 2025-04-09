@@ -1,13 +1,20 @@
-/* Global Styles */
-body {
+/* Global Styles: Apply background, fonts, and hide scrollbars on html and body */
+html, body {
   background: #1e1e1e;
   color: white;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-/* Container Styling */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Container Styling: Center the container and hide its scrollbar */
 .container {
   max-width: 400px;
   margin: auto;
@@ -15,6 +22,11 @@ body {
   background: #333;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+  overflow: auto;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 /* Title */
@@ -157,7 +169,7 @@ button:hover {
 }
 
 .copy-btn:hover {
-  background-color: rgba(255, 255, 0, 0.8); /* Yellow on hover */
+  background-color: rgba(255, 255, 0, 0.8);
 }
 
 .copy-btn.copied {
@@ -182,4 +194,14 @@ th, td {
 th {
   background: #444;
   font-weight: bold;
+}
+
+/* Center align punishment (seconds) in its column */
+.punishment {
+  text-align: center;
+}
+
+/* Warning Text: Instruction text in red */
+.warning {
+  color: red;
 }
