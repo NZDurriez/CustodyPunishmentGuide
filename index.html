@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Custody Management Guide</title>
-  <!-- Reference your main CSS file -->
+  <!-- Reference your external CSS file (if separate) -->
   <link rel="stylesheet" href="style.css" />
   <style>
     /* Additional table styling for a 3-column layout */
@@ -27,7 +27,7 @@
     .punishment {
       text-align: center;
     }
-    /* Style for warning text */
+    /* Warning text in red */
     .warning {
       color: red;
     }
@@ -38,12 +38,17 @@
     <!-- Title -->
     <h2 class="title">Custody Management Guide</h2>
     
-    <!-- Introductory text -->
+    <!-- Introductory Text -->
     <p>Welcome to the Custody Management section.</p>
-    <p>When a person has been arrested, they must be identified via name or fingerprints and searched prior to jail. Once completed, they can be jailed using <code>/jail [ID] [time]</code>.</p>
-    <p class="warning"><strong>Officers must follow the guide below for jail timing. DO NOT stack offences – choose the highest applicable offence.</strong></p>
+    <p>
+      When a person has been arrested, they must be identified via name or fingerprints and searched prior to jail. Once completed, they can be jailed using 
+      <code>/jail [ID] [time]</code>.
+    </p>
+    <p class="warning">
+      <strong>Officers must follow the guide below for jail timing. DO NOT stack offences – choose the highest applicable offence.</strong>
+    </p>
     
-    <!-- Category Dropdown -->
+    <!-- Offence Category Dropdown -->
     <div class="form-group">
       <label for="categorySelect" style="width:100%; text-align:left; margin-bottom:5px;">Select Offence Category:</label>
       <select id="categorySelect">
@@ -56,19 +61,25 @@
       </select>
     </div>
     
+    <!-- Search Input for Code / Offence -->
+    <div class="form-group">
+      <label for="searchInput" style="width:100%; text-align:left; margin-bottom:5px;">Search by Code or Offence:</label>
+      <input type="text" id="searchInput" placeholder="Enter code or text to search" />
+    </div>
+    
     <!-- Offence Table -->
     <div id="offenceTableContainer">
       <table id="offenceTable">
         <thead>
-          <tr>
-            <!-- Header will be replaced dynamically in JavaScript -->
+          <tr id="tableHeader">
+            <!-- Header is updated dynamically -->
             <th>Code Number</th>
             <th>Offence</th>
             <th>Punishment (Seconds)</th>
           </tr>
         </thead>
         <tbody>
-          <!-- Table rows will be generated dynamically -->
+          <!-- Table rows generated dynamically -->
         </tbody>
       </table>
     </div>
@@ -170,36 +181,54 @@
 
     const categorySelect = document.getElementById('categorySelect');
     const offenceTableBody = document.querySelector('#offenceTable tbody');
+    const searchInput = document.getElementById('searchInput');
+    const tableHeader = document.getElementById('tableHeader');
 
-    // Update the table based on the selected category.
-    // For the 'traffic' category, the Code column is removed.
+    // Helper to check if a string is numeric.
+    function isNumeric(str) {
+      return /^\d+$/.test(str.trim());
+    }
+
+    // Update the table based on the dropdown and search input.
     function updateTable() {
-      const selectedCategory = categorySelect.value;
+      const searchTerm = searchInput.value.trim().toLowerCase();
       offenceTableBody.innerHTML = '';
-      
-      // Update header based on category
-      const headerRow = document.querySelector('#offenceTable thead tr');
-      if (selectedCategory === 'traffic') {
-        headerRow.innerHTML = '<th>Offence</th><th>Punishment (Seconds)</th>';
-      } else {
-        headerRow.innerHTML = '<th>Code Number</th><th>Offence</th><th>Punishment (Seconds)</th>';
-      }
-      
-      // Populate table rows
-      if (offences[selectedCategory]) {
-        offences[selectedCategory].forEach(item => {
+
+      if (searchTerm !== "") {
+        // Global search: Collect matching items from all categories
+        let results = [];
+        for (let category in offences) {
+          offences[category].forEach(item => {
+            const codeText = item.code.toLowerCase();
+            const offenceText = (item.offence || "").toLowerCase();
+            if (codeText.indexOf(searchTerm) !== -1 || offenceText.indexOf(searchTerm) !== -1) {
+              results.push(item);
+            }
+          });
+        }
+        // Determine if all matching items have non-numeric code (e.g., text-based descriptions)
+        const allNonNumeric = results.length > 0 && results.every(item => !isNumeric(item.code));
+        if (allNonNumeric) {
+          // If all matching results are non-numeric, use a 2-column header.
+          tableHeader.innerHTML = '<th>Offence</th><th>Punishment (Seconds)</th>';
+        } else {
+          // Otherwise, use a full three-column header.
+          tableHeader.innerHTML = '<th>Code Number</th><th>Offence</th><th>Punishment (Seconds)</th>';
+        }
+        // Build rows for each matching result.
+        results.forEach(item => {
           const row = document.createElement('tr');
-          if (selectedCategory === 'traffic') {
-            // For traffic offences, display offence and punishment only
+          if (allNonNumeric) {
+            // 2-column row: Use the code field (which is text-based) as the offence text.
             const offenceCell = document.createElement('td');
             const punishmentCell = document.createElement('td');
             offenceCell.textContent = item.code;
             punishmentCell.textContent = item.punishment;
-            // Add class to center the punishment text
             punishmentCell.classList.add("punishment");
             row.appendChild(offenceCell);
             row.appendChild(punishmentCell);
           } else {
+            // 3-column row
             const codeCell = document.createElement('td');
             const offenceCell = document.createElement('td');
             const punishmentCell = document.createElement('td');
@@ -213,14 +242,55 @@
           }
           offenceTableBody.appendChild(row);
         });
+      } else {
+        // No search term: Display items from the selected category.
+        const selectedCategory = categorySelect.value;
+        if (selectedCategory === 'traffic') {
+          tableHeader.innerHTML = '<th>Offence</th><th>Punishment (Seconds)</th>';
+        } else {
+          tableHeader.innerHTML = '<th>Code Number</th><th>Offence</th><th>Punishment (Seconds)</th>';
+        }
+        if (offences[selectedCategory]) {
+          offences[selectedCategory].forEach(item => {
+            const row = document.createElement('tr');
+            if (selectedCategory === 'traffic') {
+              const offenceCell = document.createElement('td');
+              const punishmentCell = document.createElement('td');
+              offenceCell.textContent = item.code;
+              punishmentCell.textContent = item.punishment;
+              punishmentCell.classList.add("punishment");
+              row.appendChild(offenceCell);
+              row.appendChild(punishmentCell);
+            } else {
+              const codeCell = document.createElement('td');
+              const offenceCell = document.createElement('td');
+              const punishmentCell = document.createElement('td');
+              codeCell.textContent = item.code;
+              offenceCell.textContent = item.offence;
+              punishmentCell.textContent = item.punishment;
+              punishmentCell.classList.add("punishment");
+              row.appendChild(codeCell);
+              row.appendChild(offenceCell);
+              row.appendChild(punishmentCell);
+            }
+            offenceTableBody.appendChild(row);
+          });
+        }
       }
     }
 
-    // Initialize the table with the default category
+    // Initialize the table on load.
     updateTable();
 
-    // Update the table when the dropdown value changes
-    categorySelect.addEventListener('change', updateTable);
+    // When the category dropdown changes, clear the search and update the table.
+    categorySelect.addEventListener('change', () => {
+      if (searchInput.value.trim() !== "") {
+        searchInput.value = "";
+      }
+      updateTable();
+    });
+    // Update the table on every keyup in the search input.
+    searchInput.addEventListener('keyup', updateTable);
   </script>
 </body>
 </html>
